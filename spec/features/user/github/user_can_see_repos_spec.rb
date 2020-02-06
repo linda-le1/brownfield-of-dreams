@@ -23,13 +23,26 @@ describe 'A registered user' do
         end
     end
 
-    xit 'can only repos belonging to logged in user' do
-      # repo_1 = Repo.new("Not my repo", "not my repo URL")
-      # repo_2 = Repo.new("Not my repo either", "not my repo URL")
-      # repo_3 = Repo.new("Nor this one", "not my repo URL")
+    scenario 'can only repos belonging to logged in user' do
+      repo_fixture = File.read('spec/fixtures/repos.json')
 
-      #expect that you don't see any of these repos listed??
-      #does that even make sense?
+      stub_request(:get, "https://api.github.com/user/repos?page=1&per_page=5").
+      to_return(status: 200, body: repo_fixture)
+
+      user = create(:user)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit '/dashboard'
+
+      within "#github-repos" do
+          expect(page).to have_content("Github Repos")
+          expect(page).to have_link("monster_shop_part_1")
+          expect(page).to have_link("activerecord-obstacle-course")
+          expect(page).to have_link("adopt_dont_shop")
+          expect(page).to have_link("adopt_dont_shop_part_two")
+          expect(page).to have_link("futbol")
+      end
     end
 
     xit 'cannot see repos without token' do
