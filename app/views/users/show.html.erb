@@ -13,8 +13,7 @@
   <section id ="github-repos">
     <h1>Github Repos</h1>
       <ul>
-        <% # lots of ways to limit to 5 %>
-        <% @repos.first(5).each do |repo|%>
+        <% user_repo_search.repos.each do |repo|%>
           <li><%= link_to repo.name, repo.url %></li>
         <% end %>
       </ul>
