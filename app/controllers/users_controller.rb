@@ -1,17 +1,22 @@
 class UsersController < ApplicationController
   def show
-    # conn = Faraday.get(url: "https://api.github.com/users/") do |conn|
-    #   conn.token_auth('4ed4bd4ccb1151235aba19f009b4569cffca1d59')
-    # end
+    # could probably be some sort of.. if current_user.github_token?
+      # github_token = current_user.github_token
+      conn = Faraday.new(url: "https://api.github.com/")
+      github_token = ENV["GITHUB_TOKEN"] # variable above would replace this
+      conn.basic_auth(nil, github_token)
 
-    # response = Faraday.get("https://api.github.com/users/linda-le1/repos?access_token=4ed4bd4ccb1151235aba19f009b4569cffca1d59")
-    github_token = ENV["GITHUB_TOKEN"]
-    response = Faraday.get("https://api.github.com/user/repos?access_token=#{github_token}")
-    @repos = JSON.parse(response.body)
-    # first-repo = repos.first["name"]
-    # first-repo = repos.first["html_url"]
-
-    end
+      response = conn.get("/user/repos")
+      repos = JSON.parse(response.body)
+      # right now we get back repos that this person is a contributor on,
+      # not just an owner of
+      @repos = repos.map do |repo|
+        Repository.new(repo)
+      end
+    # else
+      #do nothing?
+    #end
+  end
 
   def new
     @user = User.new

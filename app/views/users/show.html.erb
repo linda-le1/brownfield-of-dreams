@@ -12,8 +12,11 @@
   </section>
   <section id ="github-repos">
     <h1>Github Repos</h1>
-      <% @repos.each do |repo|%>
-      <%= link_to repo["name"], "#{repo["html_url"]}" %>
-      <% end %>
+      <ul>
+        <% # lots of ways to limit to 5 %>
+        <% @repos.first(5).each do |repo|%>
+          <li><%= link_to repo.name, repo.url %></li>
+        <% end %>
+      </ul>
   </section>
 </section>
