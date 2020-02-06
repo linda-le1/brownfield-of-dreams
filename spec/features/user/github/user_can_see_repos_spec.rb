@@ -32,6 +32,7 @@ describe 'A registered user' do
 
       user = create(:user, github_token: ENV["GITHUB_TOKEN"])
       user_2 = create(:user, github_token: ENV["GIT_HUB_TOKEN_LINDA"])
+      user_2_repos = JSON.parse(File.read('spec/fixtures/repos_linda.json'))
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
@@ -44,8 +45,11 @@ describe 'A registered user' do
           expect(page).to have_link("adopt_dont_shop_part_two", href: "https://github.com/mintona/adopt_dont_shop_part_two")
           expect(page).to have_link("backend_module_0_capstone", href: "https://github.com/mintona/backend_module_0_capstone")
           expect(page).to have_link("battleship", href: "https://github.com/mintona/battleship")
-#expect page to not have any data from the other file 
+          user_2_repos.each do |repo|
+            expect(page).to_not have_link(nil, href: repo["html_url"])
+          end
       end
+
     end
 
     xit 'cannot see repos without token' do
@@ -55,7 +59,7 @@ describe 'A registered user' do
 
       # need to get out the hard coded token for this test
       # would you stub this out?
-      # allow ENV["GITHUB_TOKEN"]. to eq("")
+      # allow ENV["GITHUB_ TOKEN"]. to eq("")
     end
 end
 
