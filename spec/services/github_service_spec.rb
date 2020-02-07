@@ -5,12 +5,14 @@ describe GithubService do
     context "#get_reops" do
       it "returns user repos" do
 
-        repo_fixture = File.read('spec/fixtures/repos.json')
+        repo_fixture = File.read('spec/fixtures/repos_ali.json')
 
-        stub_request(:get, "https://api.github.com/user/repos?page=1&per_page=5").
+        stub_request(:get, "https://api.github.com/user/repos?page=1&per_page=5&affiliation=owner").
         to_return(status: 200, body: repo_fixture)
 
-        repos = subject.get_repos
+        github_service = GithubService.new(ENV["GITHUB_TOKEN_ALI"])
+        repos = github_service.get_repos
+        
         expect(repos).to be_a Array
         expect(repos.count).to eq 5
 
