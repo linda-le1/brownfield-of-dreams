@@ -14,9 +14,29 @@
     <section id ="github-repos">
       <h1>Github Repos</h1>
         <ul>
-          <% user_repo_search.repos.each do |repo|%>
+          <% user_github_search.repos.each do |repo|%>
             <section class = "repo">
               <li><%= link_to repo.name, repo.url %></li>
+            </section>
+          <% end %>
+        </ul>
+    </section>
+    <section id ="github-followers">
+      <h1>Github Followers</h1>
+        <ul>
+          <% user_github_search.followers.each do |follower|%>
+            <section class = "follower">
+              <li><%= link_to follower.handle, follower.url %></li>
+            </section>
+          <% end %>
+        </ul>
+    </section>
+      <section id ="github-following">
+      <h1>Following on Github</h1>
+        <ul>
+          <% user_github_search.following.each do |follow|%>
+            <section class = "following">
+              <li><%= link_to follow.handle, follow.url %></li>
             </section>
           <% end %>
         </ul>
