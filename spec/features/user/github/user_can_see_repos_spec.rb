@@ -63,6 +63,3 @@ describe 'A registered user' do
       expect(page).to_not have_content("Github Repos")
     end
 end
-
-#create seeds using figaro, 2 users: one with linda, one with mine
-#testing : 1 user w/ a correct token and one without
