@@ -36,6 +36,9 @@
     </section>
       <section id ="github-following">
       <h1>Following on Github</h1>
+      <% if user_github_search.following.empty? %>
+        <p> You are not following anyone. </p>
+        <%end%>
         <ul>
           <% user_github_search.following.each do |follow|%>
             <section class = "following">
