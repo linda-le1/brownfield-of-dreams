@@ -7,7 +7,7 @@ describe 'A registered user' do
         stub_request(:get, "https://api.github.com/user/repos?page=1&per_page=5").
         to_return(status: 200, body: repo_fixture)
 
-        user = create(:user, github_token: ENV["GITHUB_TOKEN"])
+        user = create(:user, github_token: ENV["GITHUB_TOKEN_ALI"])
 
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
@@ -30,8 +30,8 @@ describe 'A registered user' do
       stub_request(:get, "https://api.github.com/user/repos?page=1&per_page=5&affiliation=owner").
       to_return(status: 200, body: repo_fixture)
 
-      user = create(:user, github_token: ENV["GITHUB_TOKEN"])
-      user_2 = create(:user, github_token: ENV["GIT_HUB_TOKEN_LINDA"])
+      user = create(:user, github_token: ENV["GITHUB_TOKEN_ALI"])
+      user_2 = create(:user, github_token: ENV["GITHUB_TOKEN_LINDA"])
       user_2_repos = JSON.parse(File.read('spec/fixtures/repos_linda.json'))
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
@@ -52,14 +52,15 @@ describe 'A registered user' do
 
     end
 
-    xit 'cannot see repos without token' do
-      # user = create(:github_token = "")
-      # i think that we need to add a column to the model before we can
-      # really start testing other users
+    scenario 'cannot see repos without token' do
+      user = create(:user, github_token: nil)
 
-      # need to get out the hard coded token for this test
-      # would you stub this out?
-      # allow ENV["GITHUB_ TOKEN"]. to eq("")
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit '/dashboard'
+
+      expect(page).to_not have_css("#github-repos")
+      expect(page).to_not have_content("Github Repos")
     end
 end
 
