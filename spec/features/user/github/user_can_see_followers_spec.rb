@@ -45,15 +45,33 @@ describe 'A logged in user' do
         end
     end
 
-        scenario 'cannot view a list of their followers in the dashboard if no token' do
+    scenario 'user will be notified if they have no followers' do
+      followers_fixture = File.read('spec/fixtures/followers_none.json')
 
-            user = create(:user, github_token: nil)
+      stub_request(:get, "https://api.github.com/user/followers").
+      to_return(status: 200, body: followers_fixture)
 
-            allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      user = create(:user, github_token: ENV["GITHUB_TOKEN_LINDA"])
 
-            visit '/dashboard'
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
-                expect(page).not_to have_css(".followers")
-                expect(page).not_to have_content("Github Followers")
-            end
-        end
+      visit '/dashboard'
+
+          within "#github-followers" do
+            expect(page).not_to have_css(".follower")
+            expect(page).to have_content("Github Followers")
+            expect(page).not_to have_content("You have no followers.")
+          end
+      end
+
+    scenario 'cannot view a list of their followers in the dashboard if no token' do
+      user = create(:user, github_token: nil)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit '/dashboard'
+
+          expect(page).not_to have_css(".follower")
+          expect(page).not_to have_content("Github Followers")
+      end
+    end

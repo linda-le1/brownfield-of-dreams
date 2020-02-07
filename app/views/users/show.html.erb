@@ -23,6 +23,9 @@
     </section>
     <section id ="github-followers">
       <h1>Github Followers</h1>
+        <% if user_github_search.followers.empty? %>
+          <p> You have no followers </p>
+          <% end %>
         <ul>
           <% user_github_search.followers.each do |follower|%>
             <section class = "follower">
