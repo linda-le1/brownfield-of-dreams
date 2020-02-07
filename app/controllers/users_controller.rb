@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
   def show
-    # could probably be some sort of.. if current_user.github_token?
-      # github_token = current_user.github_token
+    if current_user.github_token?
       render locals: {
         user_repo_search: UserRepoSearch.new(current_user.github_token)
       }
+    end 
   end
 
   def new
