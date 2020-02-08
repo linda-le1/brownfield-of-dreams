@@ -21,7 +21,7 @@ describe "As an admin user" do
 
         within("#tutorial-#{tutorial_1.id}") do
           expect {
-            click_link 'Destroy'
+            click_button 'Destroy'
           }.to change { Tutorial.count }.by(-1)
             .and change { Video.count }.by(-1)
         end
