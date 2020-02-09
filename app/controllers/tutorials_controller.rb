@@ -1,6 +1,10 @@
 class TutorialsController < ApplicationController
   def index
-    @tutorials = Tutorial.all
+    if current_user
+      @tutorials = Tutorial.all.paginate(:page => params[:page], :per_page => 5)
+    else
+      @tutorials = Tutorial.not_classroom_content.paginate(:page => params[:page], :per_page => 5)
+    end
   end
 
   def show
