@@ -17,13 +17,13 @@ describe 'Visitor' do
 
       within("#tutorial-#{tutorial1.id}") do
         expect(page).to have_css('.tutorial-description')
-        expect(page).to have_content(tutorial1.title)
+        expect(page).to have_link(tutorial1.title, href: tutorial_path(tutorial1.id))
         expect(page).to have_content(tutorial1.description)
       end
 
       within("#tutorial-#{tutorial2.id}") do
         expect(page).to have_css('.tutorial-description')
-        expect(page).to have_content(tutorial2.title)
+        expect(page).to have_link(tutorial2.title, href: tutorial_path(tutorial2.id))
         expect(page).to have_content(tutorial2.description)
       end
     end
@@ -43,10 +43,10 @@ describe 'Visitor' do
 
       within('.tutorials') do
         expect(page).to have_css("#tutorial-#{tutorial1.id}")
-        expect(page).to have_content(tutorial1.title)
+        expect(page).to have_link(tutorial1.title, href: tutorial_path(tutorial1.id))
         expect(page).to have_content(tutorial1.description)
         expect(page).to_not have_css("#tutorial-#{tutorial2.id}")
-        expect(page).to_not have_content(tutorial2.title)
+        expect(page).to_not have_link(tutorial2.title, href: tutorial_path(tutorial2.id))
         expect(page).to_not have_content(tutorial2.description)
       end
     end
