@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_06_223524) do
+ActiveRecord::Schema.define(version: 2020_02_09_221354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 2020_02_06_223524) do
     t.string "video_id"
     t.string "thumbnail"
     t.bigint "tutorial_id"
-    t.integer "position", default: 0
+    t.integer "position"
     t.index ["tutorial_id"], name: "index_videos_on_tutorial_id"
   end
 
