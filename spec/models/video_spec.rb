@@ -10,11 +10,12 @@ RSpec.describe Video, type: :model do
     end
 
     describe "existance of object" do
-        it "does exist and if no position is entered it will be nil" do
+        it "does exist" do
             attrs = {
                 title: "How to Add OAuth to Your Rails Apps",
                 description: "Learn how to use OAuth.",
-                thumbnail: "https://i.ytimg.com/vi/c2UnIQ3LRnM/hqdefault.jpg"
+                thumbnail: "https://i.ytimg.com/vi/c2UnIQ3LRnM/hqdefault.jpg",
+                position: 4
             }
 
             video = Video.new(attrs)
@@ -24,7 +25,7 @@ RSpec.describe Video, type: :model do
             expect(video.title).to eq("How to Add OAuth to Your Rails Apps")
             expect(video.description).to eq("Learn how to use OAuth.")
             expect(video.thumbnail).to eq("https://i.ytimg.com/vi/c2UnIQ3LRnM/hqdefault.jpg")
-            expect(video.position.nil?).to eq(true)
+            expect(video.position).to eq(4)
         end
     end
 end
