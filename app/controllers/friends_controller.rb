@@ -2,10 +2,12 @@ class FriendsController < ApplicationController
   def create
     friender = current_user
     friendee = User.find_by(uid: params[:friendee_uid])
-    binding.pry
-    friender.friendees << friendee
-    flash[:success] = "You have added a friend!"
+    if friender.friendees.include?(friendee)
+      flash[:error] = "You have already added this friend!"
+    else
+      friender.friendees << friendee
+      flash[:success] = "You have added a friend!"
+    end
     redirect_to '/dashboard'
-    # Friend.create(friender_id: friender, friendee_id: friendee)
   end
 end
