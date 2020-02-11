@@ -12,6 +12,7 @@ describe 'As a Visitor' do
         click_on 'Bookmark'
 
         expect(page).to have_content("User must login to bookmark videos.")
+        expect(current_path).to eq(tutorial_path(tutorial))
       end
     end
   end
