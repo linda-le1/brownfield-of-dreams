@@ -26,7 +26,7 @@ gem 'yt', '~> 0.29.1'
 
 group :development, :test do
   gem 'awesome_print'
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'capybara'
   gem 'database_cleaner'
   gem 'foundation-rails'
@@ -46,4 +46,4 @@ group :development do
   gem 'web-console', '>= 3.3.0'
 end
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

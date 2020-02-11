@@ -20,3 +20,6 @@ Style/Documentation:
 
 Metrics/ClassLength:
   Max: 1500
+
+Layout/LineLength:
+  Max: 120
