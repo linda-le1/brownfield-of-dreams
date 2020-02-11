@@ -14,7 +14,7 @@
     <ul>
       <% user_dashboard_facade.bookmarks.each_with_index do |bookmark, index| %>
       <section class = "bookmark" id = "bookmark-<%= index %>">
-        <li><%= bookmark.video.title %></li>
+        <li><%= bookmark %></li>
       </section>
       <% end  %>
     </ul>
