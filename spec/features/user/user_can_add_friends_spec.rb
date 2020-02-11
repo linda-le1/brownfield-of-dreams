@@ -17,6 +17,10 @@ describe 'A registered user with a token' do
 
         visit '/dashboard'
 
+        within(".friends") do
+          expect(page).to_not have_content("mintona")
+        end
+
         within("#github-followers") do
           within("#follower-danmoran-pro") do
             expect(page).to have_link("danmoran-pro")
@@ -33,6 +37,7 @@ describe 'A registered user with a token' do
         expect(page).to have_content("You have added a friend!")
         expect(current_path).to eq("/dashboard")
         expect(page).to have_css(".friends")
+        
         within(".friends") do
           expect(page).to have_content("mintona")
         end
@@ -52,6 +57,10 @@ describe 'A registered user with a token' do
 
         visit '/dashboard'
 
+        within(".friends") do
+          expect(page).to_not have_content("mintona")
+        end
+
         within("#github-following") do
           within("#following-presidentbeef") do
             expect(page).to have_link("presidentbeef")
@@ -69,12 +78,47 @@ describe 'A registered user with a token' do
         expect(page).to have_content("You have added a friend!")
         expect(current_path).to eq("/dashboard")
         expect(page).to have_css(".friends")
-        
+
         within(".friends") do
           expect(page).to have_content("mintona")
         end
       end
 
+      it "notifies user if already friends with person they are trying to add" do
+        following_fixture = File.read('spec/fixtures/following_linda.json')
+
+        stub_request(:get, "https://api.github.com/user/following").
+        to_return(status: 200, body: following_fixture)
+
+        linda = create(:user, github_token: ENV["GITHUB_TOKEN_LINDA"], uid: 54052410)
+        ali = create(:user, github_token: ENV["GITHUB_TOKEN_ALI"], uid: 51250305)
+
+
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(linda)
+
+        visit '/dashboard'
+
+        within(".friends") do
+          expect(page).to_not have_content("mintona")
+        end
+
+        within("#following-mintona") do
+          expect(page).to have_link("mintona")
+          expect(page).to have_button("Add as Friend")
+          click_on("Add as Friend")
+        end
+
+        within(".friends") do
+          expect(page).to have_content("mintona")
+        end
+
+        within("#following-mintona") do
+          click_on("Add as Friend")
+        end
+
+        expect(page).to have_content("You have already added this friend!")
+        expect(current_path).to eq("/dashboard")
+      end
   end
 end
 
