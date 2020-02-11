@@ -26,4 +26,8 @@ class UserGithubSearch
       Following.new(following)
     end
   end
+
+  def find_handle(friend)
+    following.find { |following| following.uid == friend.uid }.handle
+  end
 end
