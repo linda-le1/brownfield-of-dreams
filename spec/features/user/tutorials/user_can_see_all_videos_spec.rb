@@ -9,30 +9,31 @@ RSpec.describe 'Tutorials Index Page' do
 
     describe 'as a logged in user' do
         it 'I see all videos' do
-        user = create(:user)
+            user = create(:user)
 
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+            allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
-        visit tutorials_path
+            visit tutorials_path
 
-        expect(page).to have_css('.tutorial', count: 3)
+            expect(page).to have_css('.tutorial', count: 3)
 
-        within("#tutorial-#{@tutorial1.id}") do
-            expect(page).to have_css('.tutorial-description')
-            expect(page).to have_link(@tutorial1.title, href: tutorial_path(@tutorial1.id))
-            expect(page).to have_content(@tutorial1.description)
-        end
+            within("#tutorial-#{@tutorial1.id}") do
+                expect(page).to have_css('.tutorial-description')
+                expect(page).to have_link(@tutorial1.title, href: tutorial_path(@tutorial1.id))
+                expect(page).to have_content(@tutorial1.description)
+            end
 
-        within("#tutorial-#{@tutorial2.id}") do
-            expect(page).to have_css('.tutorial-description')
-            expect(page).to have_link(@tutorial2.title, href: tutorial_path(@tutorial2.id))
-            expect(page).to have_content(@tutorial2.description)
-        end
+            within("#tutorial-#{@tutorial2.id}") do
+                expect(page).to have_css('.tutorial-description')
+                expect(page).to have_link(@tutorial2.title, href: tutorial_path(@tutorial2.id))
+                expect(page).to have_content(@tutorial2.description)
+            end
 
-        within("#tutorial-#{@tutorial3.id}") do
-            expect(page).to have_css('.tutorial-description')
-            expect(page).to have_link(@tutorial3.title, href: tutorial_path(@tutorial3.id))
-            expect(page).to have_content(@tutorial3.description)
+            within("#tutorial-#{@tutorial3.id}") do
+                expect(page).to have_css('.tutorial-description')
+                expect(page).to have_link(@tutorial3.title, href: tutorial_path(@tutorial3.id))
+                expect(page).to have_content(@tutorial3.description)
+            end
         end
     end
 end
