@@ -39,6 +39,13 @@ prework_tutorial.videos.create!({
   "thumbnail"=>"https://i.ytimg.com/vi/c2UnIQ3LRnM/hqdefault.jpg",
   "position"=>4
 })
+prework_tutorial.videos.create!({
+  "title"=>"Prework - Arrays Pt.II",
+  "description"=> Faker::Hipster.paragraph(2, true),
+  "video_id"=>"c2UnIQ3LRnM",
+  "thumbnail"=>"https://i.ytimg.com/vi/c2UnIQ3LRnM/hqdefault.jpg",
+  "position"=>nil
+})
 
 
 mod_1_tutorial_data = {
@@ -117,6 +124,13 @@ m3_tutorial.videos.create!({
   "video_id"=>"FcgkfZEv_LI",
   "thumbnail"=>"https://i.ytimg.com/vi/FcgkfZEv_LI/hqdefault.jpg",
   "position"=>6
+})
+m3_tutorial.videos.create!({
+  "title"=>"BDD - Consuming an API Pt. II",
+  "description"=> Faker::Hipster.paragraph(2, true),
+  "video_id"=>"FcgkfZEv_LI",
+  "thumbnail"=>"https://i.ytimg.com/vi/FcgkfZEv_LI/hqdefault.jpg",
+  "position"=>nil
 })
 
 User.create!(email: 'admin@example.com', first_name: 'Bossy', last_name: 'McBosserton', password:  "password", role: :admin)
