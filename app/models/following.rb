@@ -1,8 +1,8 @@
 class Following
-    attr_reader :handle, :url
+  attr_reader :handle, :url
 
-    def initialize(info)
-        @handle = info[:login]
-        @url = info[:html_url]
-    end
+  def initialize(info)
+    @handle = info[:login]
+    @url = info[:html_url]
   end
+end
