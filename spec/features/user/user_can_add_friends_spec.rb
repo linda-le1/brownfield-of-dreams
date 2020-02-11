@@ -92,7 +92,7 @@ describe 'A registered user with a token' do
         to_return(status: 200, body: following_fixture)
 
         linda = create(:user, github_token: ENV["GITHUB_TOKEN_LINDA"], uid: 54052410)
-        ali = create(:user, github_token: ENV["GITHUB_TOKEN_ALI"], uid: 123)
+        ali = create(:user, github_token: ENV["GITHUB_TOKEN_ALI"], uid: 51250305)
 
 
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(linda)
