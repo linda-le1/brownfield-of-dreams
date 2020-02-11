@@ -29,8 +29,11 @@
           <% end %>
         <ul>
           <% user_github_search.followers.each do |follower|%>
-            <section class = "follower">
-              <li><%= link_to follower.handle, follower.url %></li>
+            <section class = "follower" id = "follower-<%=follower.handle%>">
+              <li><%= link_to follower.handle, follower.url %>
+              <% if follower.app_user? %>
+              <%= button_to "Add as Friend", "/friends", method: :post, params: {friender_id: current_user.id, friendee_uid: follower.uid} %>
+              <% end %></li>
             </section>
           <% end %>
         </ul>
@@ -47,6 +50,12 @@
             </section>
           <% end %>
         </ul>
+    </section>
+    <section class = "friends">
+    <h1>Friends</h1>
+    <% current_user.friendees.each do |friend| %>
+    <% binding.pry %>
+    <% end %>
     </section>
   <% end %>
 </section>
