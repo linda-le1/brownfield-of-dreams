@@ -5,6 +5,7 @@ class UserGithubSearch
 
   def repos
     return @repos if @repos
+
     service = GithubService.new(@token)
     @repos = service.get_repos.map do |repo|
       Repository.new(repo)
@@ -13,6 +14,7 @@ class UserGithubSearch
 
   def followers
     return @followers if @followers
+
     service = GithubService.new(@token)
     @followers = service.get_followers.map do |follower|
       Follower.new(follower)
@@ -21,6 +23,7 @@ class UserGithubSearch
 
   def following
     return @following if @following
+    
     service = GithubService.new(@token)
     @following = service.get_following.map do |following|
       Following.new(following)
