@@ -1,7 +1,7 @@
 class UserDashboardFacade
-  def initialize(user, token = nil)
+  def initialize(user)
     @user = user
-    @token = token
+    @token = user.github_token
   end
 
   def first_and_last_name
@@ -41,7 +41,7 @@ class UserDashboardFacade
 
   def bookmarks
     # working but needs to be refactored, esp if we think they should be links
-    # needs to have only 1 db call per story
+    # needs to have only 1 db call per story -- look up eager loading in rails active record
     # needs to not load videos into memory
     UserVideo.joins(video: :tutorial).select("videos.title").where(user_id: @user.id).order("tutorials.title, videos.position").pluck("videos.title")
   end
