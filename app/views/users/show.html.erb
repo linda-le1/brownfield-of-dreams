@@ -54,7 +54,7 @@
     <section class = "friends">
     <h1>Friends</h1>
     <% current_user.friendees.each do |friend| %>
-    <% binding.pry %>
+    <%= user_github_search.find_handle(friend) %>
     <% end %>
     </section>
   <% end %>
