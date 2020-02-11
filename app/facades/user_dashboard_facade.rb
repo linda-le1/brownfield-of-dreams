@@ -40,6 +40,9 @@ class UserDashboardFacade
   end
 
   def bookmarks
-    UserVideo.all
+    # working but needs to be refactored, esp if we think they should be links
+    # needs to have only 1 db call per story
+    # needs to not load videos into memory
+    UserVideo.joins(video: :tutorial).select("videos.title").where(user_id: @user.id).order("tutorials.title, videos.position").pluck("videos.title")
   end
 end
