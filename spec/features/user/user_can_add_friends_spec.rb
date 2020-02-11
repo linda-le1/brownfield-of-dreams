@@ -19,6 +19,7 @@ describe 'A registered user with a token' do
 
         within(".friends") do
           expect(page).to_not have_content("mintona")
+          expect(page).to have_content("You haven't added any friends yet!")
         end
 
         within("#github-followers") do
@@ -37,7 +38,7 @@ describe 'A registered user with a token' do
         expect(page).to have_content("You have added a friend!")
         expect(current_path).to eq("/dashboard")
         expect(page).to have_css(".friends")
-        
+
         within(".friends") do
           expect(page).to have_content("mintona")
         end
@@ -91,7 +92,7 @@ describe 'A registered user with a token' do
         to_return(status: 200, body: following_fixture)
 
         linda = create(:user, github_token: ENV["GITHUB_TOKEN_LINDA"], uid: 54052410)
-        ali = create(:user, github_token: ENV["GITHUB_TOKEN_ALI"], uid: 51250305)
+        ali = create(:user, github_token: ENV["GITHUB_TOKEN_ALI"], uid: 123)
 
 
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(linda)
@@ -121,19 +122,3 @@ describe 'A registered user with a token' do
       end
   end
 end
-
-# linda with a token is our logged in user
-# this person needs 2 followers on github
-# mintona with a token is 1 follower
-# danmoran-pro does not have an account with our app
-# if a follower has an account in our app, a link to add them as a friend should appear
-# if our current user has a following who also has an acct, then the link should also appear
-
-# mintona has a Add as Friend link
-# danmoran-pro does not have this link
-
-# mintona is following linda and is a registered user and also needs a link
-# linda is following presidentbeef and is not a user so no link
-
-#section on dashboard of all users that linda has friended
-#friendship should not go through if id invalid (see story)
