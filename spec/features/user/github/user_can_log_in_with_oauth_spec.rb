@@ -40,6 +40,7 @@ describe "As a logged in user" do
       user = User.first
 
       expect(user.github_token.nil?).to eq(false)
+      expect(user.uid).to eq(51250305)
     end
   end
 end
