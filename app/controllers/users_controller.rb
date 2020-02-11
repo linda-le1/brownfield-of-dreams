@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
   def show
-    if current_user.github_token?
+    # if current_user.github_token?
       render locals: {
-        user_github_search: UserGithubSearch.new(current_user.github_token)
+        user_dashboard_facade: UserDashboardFacade.new(current_user, current_user.github_token)
       }
-    end
+    # end
   end
 
   def new
