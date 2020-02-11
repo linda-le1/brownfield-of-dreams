@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :user_videos
+  has_many :user_videos, dependent: :destroy
   has_many :videos, through: :user_videos
 
   validates_presence_of :first_name, :last_name
