@@ -10,4 +10,4 @@ class Following
     def app_user?
       User.exists?(uid: @uid)
     end
-  end
+end
