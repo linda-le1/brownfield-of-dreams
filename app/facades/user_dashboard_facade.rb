@@ -1,6 +1,6 @@
 class UserDashboardFacade
   attr_reader :token
-  
+
   def initialize(user)
     @user = user
     @token = user.github_token
@@ -45,11 +45,16 @@ class UserDashboardFacade
     end
   end
 
+  def find_handle(friend)
+    following.find { |following| following.uid == friend.uid }.handle
+  end
+
   def has_bookmarks?
     !@user.user_videos.empty?
   end
 
   def bookmarks
     UserVideo.video_titles(@user.id)
-  end
+
+  end 
 end

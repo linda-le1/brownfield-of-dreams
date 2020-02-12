@@ -16,7 +16,7 @@ describe 'A logged in user' do
         visit '/dashboard'
 
         within "#github-following" do
-            expect(page).to have_css(".following", count: 14)
+            expect(page).to have_css(".following", count: 15)
             expect(page).to have_content("Following on Github")
             following_parsed.each do |following|
               expect(page).to have_link(following["login"], href: following["html_url"])

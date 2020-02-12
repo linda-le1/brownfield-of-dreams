@@ -41,6 +41,8 @@ Shoulda::Matchers.configure do |config|
 end
 
 RSpec.configure do |config|
+  config.before { ActionMailer::Base.deliveries.clear }
+
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
   config.include FactoryBot::Syntax::Methods

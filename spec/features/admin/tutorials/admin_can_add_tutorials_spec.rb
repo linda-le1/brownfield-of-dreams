@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "As an admin" do
-    scenario "can add a tutorial" do
+    scenario "can add a tutorial with no video" do
         admin = create(:user, role: :admin)
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
@@ -17,6 +17,7 @@ describe "As an admin" do
 
         expect(current_path).to eq(tutorial_path(tutorial.id))
         expect(page).to have_content("Successfully created tutorial.")
+        expect(page).to have_content("There are no videos in this tutorial at this time.")
     end
 
     scenario "cannot add a tutorial if bad information is submitted" do

@@ -7,6 +7,8 @@
   <ul>
     <li> <%= user_dashboard_facade.first_and_last_name %> </li>
     <li> <%= user_dashboard_facade.email%> </li>
+
+    <li> Status: <%= current_user.status %></li>
   </ul>
 
   <section class = "bookmarks">
@@ -43,8 +45,11 @@
           <% end %>
         <ul>
           <% user_dashboard_facade.followers.each do |follower|%>
-            <section class = "follower">
-              <li><%= link_to follower.handle, follower.url %></li>
+            <section class = "follower" id = "follower-<%=follower.handle%>">
+              <li><%= link_to follower.handle, follower.url %>
+              <% if follower.app_user? %>
+                <%= button_to "Add as Friend", "/friends", method: :post, params: {friender_id: current_user.id, friendee_uid: follower.uid}, class: "btn btn-primary mb1 bg-teal" %>
+              <% end %></li>
             </section>
           <% end %>
         </ul>
@@ -57,11 +62,26 @@
         <%end%>
         <ul>
           <% user_dashboard_facade.following.each do |follow|%>
-            <section class = "following">
-              <li><%= link_to follow.handle, follow.url %></li>
+            <section class = "following" id = "following-<%=follow.handle%>">
+              <li><%= link_to follow.handle, follow.url %>
+                <% if follow.app_user? %>
+                  <%= button_to "Add as Friend", "/friends", method: :post, params: {friender_id: current_user.id, friendee_uid: follow.uid}, class: "btn btn-primary mb1 bg-teal" %>
+                <% end %></li>
             </section>
           <% end %>
         </ul>
+    </section>
+
+    <section class = "friends">
+    <h1>Friends</h1>
+    <% if current_user.friendees.empty? %>
+      <p> You haven't added any friends yet! </p>
+    <% end %>
+    <ul>
+      <% current_user.friendees.each do |friend| %>
+        <li><%= user_dashboard_facade.find_handle(friend) %></li>
+      <% end %>
+    </ul>
     </section>
   <% end %>
 </section>

@@ -3,6 +3,9 @@
 <h1 id="message"></h1>
 <div class="col col-4">
   <h4>Videos</h4>
+  <% if tutorial_facade.videos.empty? %>
+  <p>There are no videos in this tutorial at this time.</p>
+  <% else %>
   <ul>
     <% tutorial_facade.videos.each do |video| %>
       <li>
@@ -11,7 +14,6 @@
     <% end %>
   </ul>
 </div>
-<% if !tutorial_facade.current_video.nil? %>
   <div class="col col-8">
     <div class="title-bookmark">
       <h3><%= tutorial_facade.current_video.title %></h3>
