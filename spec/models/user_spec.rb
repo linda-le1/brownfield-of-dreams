@@ -42,4 +42,16 @@ RSpec.describe User, type: :model do
       expect(admin.admin?).to be_truthy
     end
   end
+
+  describe 'model methods' do
+    describe '#status' do
+      it 'displays the status of the user' do
+        user_1 = create(:user)
+        user_2 = create(:user, active?: true)
+
+        expect(user_1.status).to eq("Inactive")
+        expect(user_2.status).to eq("Active")
+      end
+    end
+  end
 end
