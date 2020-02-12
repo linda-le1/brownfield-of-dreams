@@ -45,7 +45,6 @@ RSpec.describe UserVideo, type: :model do
         video_4c = create(:video, title: "M first", tutorial_id: tutorial_4.id, position: 0)
         UserVideo.create!(user: user, video: video_4c)
 
-        # expected = [video_2a.title, video_2b.title, video_4c.title, video_4a.title, video_4b.title, video_1.title]
         expected = [video_2a, video_2b, video_4c, video_4a, video_4b, video_1]
         bookmark_1 = UserVideo.video_titles(user.id).first
         bookmark_2 = UserVideo.video_titles(user.id).second
