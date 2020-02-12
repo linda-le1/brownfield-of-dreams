@@ -39,10 +39,11 @@ class UserDashboardFacade
     end
   end
 
+  def has_bookmarks?
+    !@user.user_videos.empty?
+  end
+
   def bookmarks
-    # working but needs to be refactored, esp if we think they should be links
-    # needs to have only 1 db call per story -- look up eager loading in rails active record
-    # needs to not load videos into memory
-    UserVideo.joins(video: :tutorial).select("videos.title").where(user_id: @user.id).order("tutorials.title, videos.position").pluck("videos.title")
+    UserVideo.video_titles(@user.id)
   end
 end
