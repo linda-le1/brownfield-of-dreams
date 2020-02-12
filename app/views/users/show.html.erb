@@ -11,13 +11,17 @@
 
   <section class = "bookmarks">
     <h1>Bookmarked Segments</h1>
-    <ul>
-      <% user_dashboard_facade.bookmarks.each_with_index do |bookmark, index| %>
-      <section class = "bookmark" id = "bookmark-<%= index %>">
-        <li><%= bookmark %></li>
-      </section>
-      <% end  %>
-    </ul>
+      <% if user_dashboard_facade.has_bookmarks? %>
+        <ul>
+          <% user_dashboard_facade.bookmarks.each_with_index do |bookmark, index| %>
+          <section class = "bookmark" id = "bookmark-<%= index %>">
+            <li><%= link_to bookmark.title, "/tutorials/#{bookmark.tutorial_id}?video_id=#{bookmark.video_id}" %></li>
+          </section>
+          <% end  %>
+        </ul>
+      <% else %>
+        <p>You have not bookmarked any videos yet.</p>
+      <% end %>
   </section>
 
   <% if current_user.github_token %>
@@ -47,17 +51,17 @@
     </section>
 
     <section id ="github-following">
-    <h1>Following on Github</h1>
-    <% if user_dashboard_facade.following.empty? %>
-      <p> You are not following anyone. </p>
-      <%end%>
-      <ul>
-        <% user_dashboard_facade.following.each do |follow|%>
-          <section class = "following">
-            <li><%= link_to follow.handle, follow.url %></li>
-          </section>
-        <% end %>
-      </ul>
+      <h1>Following on Github</h1>
+      <% if user_dashboard_facade.following.empty? %>
+        <p> You are not following anyone. </p>
+        <%end%>
+        <ul>
+          <% user_dashboard_facade.following.each do |follow|%>
+            <section class = "following">
+              <li><%= link_to follow.handle, follow.url %></li>
+            </section>
+          <% end %>
+        </ul>
     </section>
   <% end %>
 </section>
