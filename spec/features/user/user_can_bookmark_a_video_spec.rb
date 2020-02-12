@@ -67,36 +67,39 @@ describe 'A registered user' do
     end
 ### do you think these should be links to the videos? why else would they be bookmarked?
     within("#bookmark-0") do
-      expect(page).to have_content(video_2a.title)
+      expect(page).to have_link(video_2a.title, href: "/tutorials/#{tutorial_2.id}?video_id=#{video_2a.id}")
     end
 
     within("#bookmark-1") do
-      expect(page).to have_content(video_2b.title)
+      expect(page).to have_link(video_2b.title, href: "/tutorials/#{tutorial_2.id}?video_id=#{video_2b.id}")
     end
 
     within("#bookmark-2") do
-      expect(page).to have_content(video_4c.title)
+      expect(page).to have_link(video_4c.title, href: "/tutorials/#{tutorial_4.id}?video_id=#{video_4c.id}")
     end
 
     within("#bookmark-3") do
-      expect(page).to have_content(video_4a.title)
+      expect(page).to have_link(video_4a.title, href: "/tutorials/#{tutorial_4.id}?video_id=#{video_4a.id}")
     end
 
     within("#bookmark-4") do
-      expect(page).to have_content(video_4b.title)
+      expect(page).to have_link(video_4b.title, href: "/tutorials/#{tutorial_4.id}?video_id=#{video_4b.id}")
     end
 
     within("#bookmark-5") do
-      expect(page).to have_content(video_1.title)
+      expect(page).to have_link(video_1.title, href: "/tutorials/#{tutorial_1.id}?video_id=#{video_1.id}")
     end
   end
-  # Check sad path up there about not being able to book mark twice
-  
-#   As a logged in user
-# When I visit '/dashboard'
-# Then I should see a list of all bookmarked segments under the Bookmarked Segments section
-# And they should be organized by which tutorial they are a part of
-# And the videos should be ordered by their position
 
-  # add test for when there are no bookmarks
+  it 'displays a message if I have no bookmarks' do
+    user = create(:user)
+
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+    visit dashboard_path
+
+    within ".bookmarks" do
+      expect(page).to have_content("You have not bookmarked any videos yet.")
+    end
+  end
 end
