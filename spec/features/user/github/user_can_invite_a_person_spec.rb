@@ -14,7 +14,7 @@ RSpec.describe "As a logged in user" do
 
         expect(current_path).to eq('/invite')
 
-        fill_in 'Github Handle', with: 'mintona'
+        fill_in :github_handle, with: 'mintona'
 
         click_button 'Send Invite'
 
@@ -54,7 +54,7 @@ RSpec.describe "As a logged in user" do
 
         expect(current_path).to eq('/invite')
 
-        fill_in 'Github Handle', with: 'nowaythisisagithubuser'
+        fill_in :github_handle, with: 'nowaythisisagithubuser'
 
         click_button 'Send Invite'
 
