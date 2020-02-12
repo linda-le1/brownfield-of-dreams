@@ -27,8 +27,8 @@ describe 'as a visitor', :js do
 
       expect do
         click_on "Create Account"
-      end
-      .to change { ActionMailer::Base.deliveries.count }.by(1)
+      end.
+      to change { ActionMailer::Base.deliveries.count }.by(1)
 
       expect(current_path).to eq(dashboard_path)
       expect(page).to have_content(email)
@@ -39,7 +39,10 @@ describe 'as a visitor', :js do
       expect(page).to have_content("This account has not yet been activated. Please check your email.")
       expect(page).to have_content("Status: Inactive")
 
-      visit '/activate'
+      user = User.last
+
+      visit "/activate/#{user.id}"
+
       expect(current_path).to eq(dashboard_path)
       expect(page).to have_content(email)
       expect(page).to have_content(first_name)
