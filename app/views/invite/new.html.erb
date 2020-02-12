@@ -1,0 +1,11 @@
+<section class="invite-new">
+  <h1>Invite a Friend!</h1>
+    <%= form_tag '/invite', method: :post do |f|%>
+      <%= label_tag :github_handle %>
+      <%= text_field_tag :github_handle %>
+
+      <%= submit_tag 'Send Invite' %>
+    <% end %>
+
+
+</section>
