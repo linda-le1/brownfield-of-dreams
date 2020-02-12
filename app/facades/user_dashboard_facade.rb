@@ -6,6 +6,10 @@ class UserDashboardFacade
     @token = user.github_token
   end
 
+  def user_id
+    @user.id
+  end
+
   def first_name
     @user.first_name
   end
@@ -16,6 +20,10 @@ class UserDashboardFacade
 
   def email
     @user.email
+  end
+
+  def user_status
+    @user.status
   end
 
   def repos
@@ -45,6 +53,14 @@ class UserDashboardFacade
     end
   end
 
+  def no_friends?
+    @user.friendees.empty?
+  end
+
+  def user_friends
+    @user.friendees
+  end
+
   def find_handle(friend)
     following.find { |following| following.uid == friend.uid }.handle
   end
@@ -56,5 +72,5 @@ class UserDashboardFacade
   def bookmarks
     UserVideo.video_titles(@user.id)
 
-  end 
+  end
 end
