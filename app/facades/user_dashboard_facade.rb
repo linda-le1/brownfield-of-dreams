@@ -1,7 +1,13 @@
 class UserDashboardFacade
+  attr_reader :token
+  
   def initialize(user)
     @user = user
     @token = user.github_token
+  end
+
+  def first_name
+    @user.first_name
   end
 
   def first_and_last_name
