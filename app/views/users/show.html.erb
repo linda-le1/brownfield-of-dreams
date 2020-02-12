@@ -1,35 +1,50 @@
-<section class="dashboard-main">
-  <h1> <%= current_user.first_name %>'s Dashboard </h1>
+<section class = "dashboard-main">
+  <h1> <%= user_dashboard_facade.first_name %>'s Dashboard </h1>
 
   <%= button_to 'Log Out', logout_path, method: 'delete', class: "btn btn-primary mb1 bg-teal" %>
   <%= button_to 'Connect to Github', "/auth/github", class: "btn btn-primary mb1 bg-teal" %>
   <h3>Account Details</h3>
   <ul>
-    <li> <%= current_user.first_name  %> <%= current_user.last_name %> </li>
-    <li> <%= current_user.email%> </li>
+    <li> <%= user_dashboard_facade.first_and_last_name %> </li>
+    <li> <%= user_dashboard_facade.email%> </li>
+
     <li> Status: <%= current_user.status %></li>
   </ul>
-  <section>
+
+  <section class = "bookmarks">
     <h1>Bookmarked Segments</h1>
+      <% if user_dashboard_facade.has_bookmarks? %>
+        <ul>
+          <% user_dashboard_facade.bookmarks.each_with_index do |bookmark, index| %>
+          <section class = "bookmark" id = "bookmark-<%= index %>">
+            <li><%= link_to bookmark.title, "/tutorials/#{bookmark.tutorial_id}?video_id=#{bookmark.video_id}" %></li>
+          </section>
+          <% end  %>
+        </ul>
+      <% else %>
+        <p>You have not bookmarked any videos yet.</p>
+      <% end %>
   </section>
-  <% if current_user.github_token %>
-    <section id ="github-repos">
+
+  <% if user_dashboard_facade.token %>
+    <section id = "github-repos">
       <h1>Github Repos</h1>
         <ul>
-          <% user_github_search.repos.each do |repo|%>
+          <% user_dashboard_facade.repos.each do |repo|%>
             <section class = "repo">
               <li><%= link_to repo.name, repo.url %></li>
             </section>
           <% end %>
         </ul>
     </section>
+
     <section id ="github-followers">
       <h1>Github Followers</h1>
-        <% if user_github_search.followers.empty? %>
+        <% if user_dashboard_facade.followers.empty? %>
           <p> You have no followers </p>
           <% end %>
         <ul>
-          <% user_github_search.followers.each do |follower|%>
+          <% user_dashboard_facade.followers.each do |follower|%>
             <section class = "follower" id = "follower-<%=follower.handle%>">
               <li><%= link_to follower.handle, follower.url %>
               <% if follower.app_user? %>
@@ -39,13 +54,14 @@
           <% end %>
         </ul>
     </section>
-      <section id ="github-following">
+
+    <section id ="github-following">
       <h1>Following on Github</h1>
-      <% if user_github_search.following.empty? %>
+      <% if user_dashboard_facade.following.empty? %>
         <p> You are not following anyone. </p>
         <%end%>
         <ul>
-          <% user_github_search.following.each do |follow|%>
+          <% user_dashboard_facade.following.each do |follow|%>
             <section class = "following" id = "following-<%=follow.handle%>">
               <li><%= link_to follow.handle, follow.url %>
                 <% if follow.app_user? %>
@@ -55,6 +71,7 @@
           <% end %>
         </ul>
     </section>
+
     <section class = "friends">
     <h1>Friends</h1>
     <% if current_user.friendees.empty? %>
@@ -62,7 +79,7 @@
     <% end %>
     <ul>
       <% current_user.friendees.each do |friend| %>
-        <li><%= user_github_search.find_handle(friend) %></li>
+        <li><%= user_dashboard_facade.find_handle(friend) %></li>
       <% end %>
     </ul>
     </section>
