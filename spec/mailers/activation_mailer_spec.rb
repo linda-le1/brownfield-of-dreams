@@ -1,5 +1,5 @@
 require "rails_helper"
-Describe ActivationMailer, type: :mailer do
+describe ActivationMailer, type: :mailer do
     describe "When a user registers an account and gets an activation email" do
         before :each do
             user = create(:user, email: "example@gmail.com")
