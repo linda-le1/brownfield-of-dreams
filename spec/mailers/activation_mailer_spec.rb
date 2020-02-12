@@ -11,15 +11,15 @@ describe ActivationMailer, type: :mailer do
         end
 
         it "has the correct sender's email address" do
-            expect(@email.from).to eql("no-reply@brownfieldofdreams.com")
+            expect(@email.from).to eql(["no-reply@brownfieldofdreams.com"])
         end
 
         it "has the correct receiving user's email address" do
-            expect(@email.to).to eql("#{@user.email}")
+            expect(@email.to).to eql(["#{@user.email}"])
         end
 
         it "has the activation url" do
-            expect(@email.body).to eql("/activate")
+            expect(@email.body.encoded).to match("/activate")
         end
     end
 end
