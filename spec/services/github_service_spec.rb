@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe GithubService do
   context "instance methods" do
-    context "#get_reops" do
+    context "#get_repos" do
       it "returns user repos" do
 
         repo_fixture = File.read('spec/fixtures/repos_ali.json')
