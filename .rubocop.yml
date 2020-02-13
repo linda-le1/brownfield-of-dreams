@@ -22,4 +22,19 @@ Metrics/ClassLength:
   Max: 1500
 
 Layout/LineLength:
-  Max: 120
+  Max: 200
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: false
+
+Naming/PredicateName:
+  Enabled: false
+
+Lint/ShadowingOuterLocalVariable:
+  Enabled: false
