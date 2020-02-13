@@ -32,9 +32,10 @@ class GithubService
   private
 
   def conn
-    connection = Faraday.new(url: 'https://api.github.com/')
-    connection.basic_auth(nil, @github_token)
-    connection
+    connection = Faraday.new(url: 'https://api.github.com/') do |faraday|
+      faraday.headers['Authorization'] = "token #{@github_token}"
+      faraday.adapter Faraday.default_adapter
+    end
   end
 
   def response(url)
