@@ -65,12 +65,38 @@ describe GithubService do
       end
     end
 
-    xcontext "#user_exists?" do
+    context "#user_exists?" do
+      it "returns true if the username entered is a real github handle" do
+        # user_exist_fixture = File.read('spec/fixtures/user_exist_linda_le1.json')
 
+        # stub_request(:get, "https://api.github.com/users/linda-le1").
+        # to_return(status: 200, body: user_exist_fixture)
+
+        github_service = GithubService.new(ENV["GITHUB_TOKEN_LINDA"])
+
+        expect(github_service.user_exists?("linda-le1")).to eq(true)
+
+        github_service_2 = GithubService.new(ENV["GITHUB_TOKEN_LINDA"])
+
+        expect(github_service_2.user_exists?("nowaythisisagithubuser")).to eq(false)
+      end
     end
 
-    xcontext "#get_user_email" do
+    context "#get_user" do
+      it "returns the info for a github user" do
+        user_exist_fixture = File.read('spec/fixtures/user_exist_linda_le1.json')
 
+        stub_request(:get, "https://api.github.com/users/linda-le1").
+        to_return(status: 200, body: user_exist_fixture)
+
+        github_service = GithubService.new(ENV["GITHUB_TOKEN_LINDA"])
+
+        user_information = github_service.get_user("linda-le1")
+
+        expect(user_information).to be_a Hash
+        expect(user_information).to have_key :name
+        expect(user_information).to have_key :email
+      end
     end
   end
 end
