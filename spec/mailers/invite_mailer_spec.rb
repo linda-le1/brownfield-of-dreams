@@ -2,7 +2,6 @@ require "rails_helper"
 describe InviteMailer, type: :mailer do
     describe "When a user sends an invite to a non registered user to join the app" do
         before :each do
-            # @user = create(:user, email: "example@gmail.com")
             @email_address = 'ali@gmail.com'
             @name = 'Alison Vermeil'
             @sender_name = 'Linda'

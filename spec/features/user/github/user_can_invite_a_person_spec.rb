@@ -64,6 +64,26 @@ RSpec.describe "As a logged in user" do
         expect(page).to have_button 'Send Invite'
       end
     end
+
+    scenario "I am alerted if the invitee is already an app user" do
+      user = create(:user, github_token: ENV["GITHUB_TOKEN_LINDA"])
+      user_2 = create(:user, github_token: ENV["GITHUB_TOKEN_ALI"], uid: 51250305)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit dashboard_path
+
+      click_button 'Send an Invite'
+
+      expect(current_path).to eq('/invite')
+
+      fill_in :github_handle, with: 'mintona'
+
+      click_button 'Send Invite'
+
+      expect(page).to have_content("The Github user already has an account with Brownfield of Dreams.")
+      expect(page).to have_button 'Send Invite'
+    end
   end
 
   describe "As the invitee" do

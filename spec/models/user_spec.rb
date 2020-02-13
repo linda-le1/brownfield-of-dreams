@@ -53,6 +53,13 @@ RSpec.describe User, type: :model do
         expect(user_2.status).to eq("Active")
       end
     end
+
+    describe '#full_name' do
+      it 'displays the first and last name of the user' do
+        user = create(:user, first_name: "Ali", last_name: "Smith")
+
+        expect(user.full_name).to eq("Ali Smith")
+      end
+    end
   end
 end
-
