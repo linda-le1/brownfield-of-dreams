@@ -9,6 +9,6 @@ class ApplicationController < ActionController::Base
   end
 
   def four_oh_four
-    render file: "/public/404" unless current_user.admin?
+    render file: '/public/404' unless current_user.admin?
   end
 end
