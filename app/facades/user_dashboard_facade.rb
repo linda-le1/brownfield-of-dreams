@@ -71,6 +71,5 @@ class UserDashboardFacade
 
   def bookmarks
     UserVideo.video_titles(@user.id)
-
   end
 end

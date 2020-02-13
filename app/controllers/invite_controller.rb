@@ -1,6 +1,5 @@
 class InviteController < ApplicationController
-  def new
-  end
+  def new; end
 
   def create
     service = GithubService.new(current_user.github_token)
@@ -11,19 +10,19 @@ class InviteController < ApplicationController
       invitee = service.get_user(handle)
       invitee_email = invitee[:email]
       invitee_name = invitee[:name]
-      if invitee_email == nil
+      if invitee_email.nil?
         flash[:error] = "The Github user you selected doesn't have an email address associated with their account."
         render :new
       else
 
-      InviteMailer.invite_user(invitee_email, invitee_name, current_user.first_name).deliver_now
-      flash[:success] = "Successfully sent invite!"
+        InviteMailer.invite_user(invitee_email, invitee_name, current_user.first_name).deliver_now
+        flash[:success] = 'Successfully sent invite!'
 
-      redirect_to dashboard_path
+        redirect_to dashboard_path
       end
     else
-      flash[:error] = "There is no Github user with that handle."
-      render :new 
+      flash[:error] = 'There is no Github user with that handle.'
+      render :new
     end
   end
 end
