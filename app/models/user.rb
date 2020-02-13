@@ -19,7 +19,7 @@ class User < ApplicationRecord
 
   def status
     return 'Active' if active?
-    return 'Inactive' if !active?
+    return 'Inactive' unless active?
   end
 
   def full_name
