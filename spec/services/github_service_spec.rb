@@ -10,8 +10,7 @@ describe GithubService do
         stub_request(:get, "https://api.github.com/user/repos?page=1&per_page=5&affiliation=owner").
         to_return(status: 200, body: repo_fixture)
 
-        github_service = GithubService.new(ENV["GITHUB_TOKEN_ALI"])
-        repos = github_service.get_repos
+        repos = JSON.parse(repo_fixture, symbolize_names: true)
 
         expect(repos).to be_a Array
         expect(repos.count).to eq 5
@@ -50,8 +49,7 @@ describe GithubService do
         stub_request(:get, "https://api.github.com/user/following").
         to_return(status: 200, body: following_fixture)
 
-        github_service = GithubService.new(ENV["GITHUB_TOKEN_LINDA"])
-        following = github_service.get_following
+        following = JSON.parse(following_fixture, symbolize_names: true)
 
         expect(following).to be_a Array
         expect(following.count).to eq 15
@@ -66,18 +64,13 @@ describe GithubService do
 
     context "#user_exists?" do
       it "returns true if the username entered is a real github handle" do
-        # user_exist_fixture = File.read('spec/fixtures/user_exist_linda_le1.json')
-
-        # stub_request(:get, "https://api.github.com/users/linda-le1").
-        # to_return(status: 200, body: user_exist_fixture)
-
-        github_service = GithubService.new(ENV["GITHUB_TOKEN_LINDA"])
+        github_service = GithubService.new(ENV['GITHUB_TOKEN_LINDA'])
 
         expect(github_service.user_exists?("linda-le1")).to eq(true)
 
-        github_service_2 = GithubService.new(ENV["GITHUB_TOKEN_LINDA"])
+        user_2_exist_fixture = File.read('spec/fixtures/user_exist_linda_le1.json')
 
-        expect(github_service_2.user_exists?("nowaythisisagithubuser")).to eq(false)
+        expect(github_service.user_exists?("nowaythisisagithubuser")).to eq(false)
       end
     end
 
@@ -88,9 +81,7 @@ describe GithubService do
         stub_request(:get, "https://api.github.com/users/linda-le1").
         to_return(status: 200, body: user_exist_fixture)
 
-        github_service = GithubService.new(ENV["GITHUB_TOKEN_LINDA"])
-
-        user_information = github_service.get_user("linda-le1")
+        user_information = JSON.parse(user_exist_fixture, symbolize_names: true)
 
         expect(user_information).to be_a Hash
         expect(user_information).to have_key :name
