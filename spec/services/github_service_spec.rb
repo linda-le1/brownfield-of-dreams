@@ -30,8 +30,7 @@ describe GithubService do
         stub_request(:get, "https://api.github.com/user/followers").
         to_return(status: 200, body: follower_fixture)
 
-        github_service = GithubService.new(ENV["GITHUB_TOKEN_LINDA"])
-        followers = github_service.get_followers
+        followers = JSON.parse(follower_fixture, symbolize_names: true)
 
         expect(followers).to be_a Array
         expect(followers.count).to eq 2

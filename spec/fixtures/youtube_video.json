@@ -1,0 +1,70 @@
+{
+ "kind": "youtube#videoListResponse",
+ "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/FuN-pKSXwYHhPIS4B2TfecdiR0g\"",
+ "pageInfo": {
+  "totalResults": 1,
+  "resultsPerPage": 1
+ },
+ "items": [
+  {
+   "kind": "youtube#video",
+   "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/H4yFsbczL-1Z1lYFyx3Cb_ZvgLw\"",
+   "id": "J7ikFUlkP_k",
+   "snippet": {
+    "publishedAt": "2018-07-23T20:59:59.000Z",
+    "channelId": "UC2zYYOtckevoWTGDu5SdCkg",
+    "title": "Rails Integration Tests for Pages with JavaScript",
+    "description": "This video shows how to write feature/integration tests within RSpec configured to run expectations for pages that run JavaScript.",
+    "thumbnails": {
+     "default": {
+      "url": "https://i.ytimg.com/vi/J7ikFUlkP_k/default.jpg",
+      "width": 120,
+      "height": 90
+     },
+     "medium": {
+      "url": "https://i.ytimg.com/vi/J7ikFUlkP_k/mqdefault.jpg",
+      "width": 320,
+      "height": 180
+     },
+     "high": {
+      "url": "https://i.ytimg.com/vi/J7ikFUlkP_k/hqdefault.jpg",
+      "width": 480,
+      "height": 360
+     },
+     "standard": {
+      "url": "https://i.ytimg.com/vi/J7ikFUlkP_k/sddefault.jpg",
+      "width": 640,
+      "height": 480
+     },
+     "maxres": {
+      "url": "https://i.ytimg.com/vi/J7ikFUlkP_k/maxresdefault.jpg",
+      "width": 1280,
+      "height": 720
+     }
+    },
+    "channelTitle": "Turing School of Software and Design",
+    "categoryId": "28",
+    "liveBroadcastContent": "none",
+    "localized": {
+     "title": "Rails Integration Tests for Pages with JavaScript",
+     "description": "This video shows how to write feature/integration tests within RSpec configured to run expectations for pages that run JavaScript."
+    }
+   },
+   "contentDetails": {
+    "duration": "PT16M16S",
+    "dimension": "2d",
+    "definition": "hd",
+    "caption": "false",
+    "licensedContent": false,
+    "projection": "rectangular"
+   },
+   "statistics": {
+    "viewCount": "254",
+    "likeCount": "2",
+    "dislikeCount": "0",
+    "favoriteCount": "0",
+    "commentCount": "0"
+   }
+  }
+ ]
+}
