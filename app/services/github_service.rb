@@ -15,6 +15,20 @@ class GithubService
     get_json('/user/following')
   end
 
+  def user_exists?(handle)
+    status = response("/users/#{handle}").status
+
+    if status == 200
+      true
+    elsif status == 404
+      false
+    end
+  end
+
+  def get_user(handle)
+    get_json("/users/#{handle}")
+  end
+
   private
 
   def conn
@@ -23,8 +37,11 @@ class GithubService
     connection
   end
 
+  def response(url)
+    conn.get(url)
+  end
+
   def get_json(url)
-    response = conn.get(url)
-    JSON.parse(response.body, symbolize_names: true)
+    JSON.parse(response(url).body, symbolize_names: true)
   end
 end

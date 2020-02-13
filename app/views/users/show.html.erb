@@ -3,12 +3,13 @@
 
   <%= button_to 'Log Out', logout_path, method: 'delete', class: "btn btn-primary mb1 bg-teal" %>
   <%= button_to 'Connect to Github', "/auth/github", class: "btn btn-primary mb1 bg-teal" %>
+  <%= button_to 'Send an Invite', "/invite", class: "btn btn-primary mb1 bg-teal", method: :get %>
   <h3>Account Details</h3>
   <ul>
     <li> <%= user_dashboard_facade.first_and_last_name %> </li>
     <li> <%= user_dashboard_facade.email%> </li>
 
-    <li> Status: <%= current_user.status %></li>
+    <li> Status: <%= user_dashboard_facade.user_status %></li>
   </ul>
 
   <section class = "bookmarks">
@@ -48,7 +49,7 @@
             <section class = "follower" id = "follower-<%=follower.handle%>">
               <li><%= link_to follower.handle, follower.url %>
               <% if follower.app_user? %>
-                <%= button_to "Add as Friend", "/friends", method: :post, params: {friender_id: current_user.id, friendee_uid: follower.uid}, class: "btn btn-primary mb1 bg-teal" %>
+                <%= button_to "Add as Friend", "/friends", method: :post, params: {friender_id: user_dashboard_facade.user_id, friendee_uid: follower.uid}, class: "btn btn-primary mb1 bg-teal" %>
               <% end %></li>
             </section>
           <% end %>
@@ -65,7 +66,7 @@
             <section class = "following" id = "following-<%=follow.handle%>">
               <li><%= link_to follow.handle, follow.url %>
                 <% if follow.app_user? %>
-                  <%= button_to "Add as Friend", "/friends", method: :post, params: {friender_id: current_user.id, friendee_uid: follow.uid}, class: "btn btn-primary mb1 bg-teal" %>
+                  <%= button_to "Add as Friend", "/friends", method: :post, params: {friender_id: user_dashboard_facade.user_id, friendee_uid: follow.uid}, class: "btn btn-primary mb1 bg-teal" %>
                 <% end %></li>
             </section>
           <% end %>
@@ -74,11 +75,11 @@
 
     <section class = "friends">
     <h1>Friends</h1>
-    <% if current_user.friendees.empty? %>
+    <% if user_dashboard_facade.no_friends? %>
       <p> You haven't added any friends yet! </p>
     <% end %>
     <ul>
-      <% current_user.friendees.each do |friend| %>
+      <% user_dashboard_facade.user_friends.each do |friend| %>
         <li><%= user_dashboard_facade.find_handle(friend) %></li>
       <% end %>
     </ul>
