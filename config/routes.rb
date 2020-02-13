@@ -37,8 +37,6 @@ Rails.application.routes.draw do
   get '/invite', to: 'invite#new'
   post '/invite', to: 'invite#create'
   get '/signup', to: 'users#new'
-  # Is this being used?
-  get '/video', to: 'video#show'
 
   resources :users, only: [:new, :create, :update, :edit]
 
