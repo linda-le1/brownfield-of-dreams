@@ -58,7 +58,7 @@ RSpec.describe User, type: :model do
       it 'displays the first and last name of the user' do
         user = create(:user, first_name: "Ali", last_name: "Smith")
 
-        expect(user.name).to eq("Ali Smith")
+        expect(user.full_name).to eq("Ali Smith")
       end
     end
   end
