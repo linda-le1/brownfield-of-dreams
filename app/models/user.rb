@@ -18,10 +18,11 @@ class User < ApplicationRecord
   enum role: %i[default admin]
 
   def status
-    if active?
-      'Active'
-    else
-      'Inactive'
-    end
+    return 'Active' if active?
+    return 'Inactive' if !active?
+  end
+
+  def full_name
+    "#{first_name} #{last_name}"
   end
 end
